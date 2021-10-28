@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    #MainBody {
+        display: flex;
+        gap: 30px;
+        border: 1px ;
+        margin: auto;
+        width: 820px;
+        /* background-color: rgb(233, 255, 200); */
+    }
+    #inputSide{
+        border: 1px;
+       
+    }
+    #outputSide{
+        border:1px ;
+
+    }
+    #op{
+        width: 400px;
+        height: 300px;
+        border: 1px solid black ;
+        font-size: 50px;
+        font-weight: bold;
+        overflow: scroll;
+    }
+    #inputText{
+
+        font-size: 20px;
+        text-align: center;
+        font-weight: bold;
+
+    
+    }
+
+    #translate {
+        height: 300px;
+        width: 400px;
+        font-size: 40px;
+    }
+    #opText{
+        
+        border: 1px ;
+        width: 130px;
+        margin-left: 68%;
+    }
+</style>
+
+<body>
+    <div id="MainBody">
+
+        <div id="inputSide"> 
+
+            <div id="inputText"> Traslate from  </div>
+
+            <label for="lang-select">Choose a Language</label>
+            <form>
+
+                <select id="lang-select" style="padding: 10px;" onchange="getSelectValue();">
+                    <option value="">Select</option>
+                    <option value="en">English</option>
+                    <option value="ar">Arabic</option>
+                    <option value="zh">chinese</option>
+                    <option value="de">German</option>
+                    <option value="hi">Hindi</option>
+                    <option value="id">Indonesian</option>
+                    <option value="ga">Irish</option>
+                    <option value="it">Italian</option>
+                    <option value="ja">Japanese</option>
+                    <option value="ko">Korean</option>
+                    <option value="pl">Polish</option>
+                    <option value="pt">Portuguese</option>
+                    <option value="ru">Russian</option>
+                    <option value="Turkish">tr</option>
+                    <option value="vi">Vietnamese</option>
+                </select>
+
+            </form>
+
+            <input type="text" id="translate" placeholder="Type Your Txt Here">
+
+
+        </div>
+
+        <div id="outputSide">
+            <div id="inputText"> Traslate To  </div>
+            <div id="opText">
+            <label for="lang-select">Choose a Language</label>
+            <form>
+
+                <select id="lang-select1" style="padding: 10px;" onchange="getSelectValue1();">
+                    <option value="">Select</option>
+                    <option value="en">English</option>
+                    <option value="ar">Arabic</option>
+                    <option value="zh">chinese</option>
+                    <option value="de">German</option>
+                    <option value="hi">Hindi</option>
+                    <option value="id">Indonesian</option>
+                    <option value="ga">Irish</option>
+                    <option value="it">Italian</option>
+                    <option value="ja">Japanese</option>
+                    <option value="ko">Korean</option>
+                    <option value="pl">Polish</option>
+                    <option value="pt">Portuguese</option>
+                    <option value="ru">Russian</option>
+                    <option value="Turkish">tr</option>
+                    <option value="vi">Vietnamese</option>
+                </select>
+
+            </form>
+        </div>
+
+            <div id="op"></div>
+
+
+        </div>
+
+
+
+
+
+
+    </div>
+</body>
+
+</html>
+<script>
+
+    async function trans(inp, from, to) {
+
+        let res = await fetch("https://libretranslate.de/translate", {
+            method: "POST",
+            body: JSON.stringify({
+                q: `${inp}`,
+                source: `${from}`,
+                target: `${to}`
+            }),
+            headers: { "Content-Type": "application/json" }
+        });
+
+        let data = await res.json()
+        console.log("data :", data);
+
+        let OPtext = document.getElementById("op")
+        OPtext.innerHTML = null
+        let appnd = document.createElement("p")
+        appnd.textContent = data.translatedText
+
+        OPtext.append(appnd)
+
+
+
+    }
+
+
+
+    var from;
+    var to;
+
+
+    function getSelectValue() {
+        var selectedValue = document.getElementById("lang-select").value;
+
+        from = selectedValue
+
+    }
+
+    function getSelectValue1() {
+
+        var selectedValue1 = document.getElementById("lang-select1").value;
+        to = selectedValue1
+
+        console.log(from, to)
+    }
+
+
+    let inp = document.getElementById("translate")
+
+    inp.addEventListener('keyup', (e) => {
+
+        if (e.keyCode === 13) {
+            // console.log(e.target.value)
+
+            let inpText = e.target.value;
+            trans(inpText, from, to)
+
+        }
+    })
+
+
+
+
+</script>
