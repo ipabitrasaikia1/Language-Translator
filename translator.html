@@ -6,54 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 
-<style>
-    #MainBody {
-        display: flex;
-        gap: 30px;
-        border: 1px ;
-        margin: auto;
-        width: 820px;
-        /* background-color: rgb(233, 255, 200); */
-    }
-    #inputSide{
-        border: 1px;
-       
-    }
-    #outputSide{
-        border:1px ;
 
-    }
-    #op{
-        width: 400px;
-        height: 300px;
-        border: 1px solid black ;
-        font-size: 50px;
-        font-weight: bold;
-        overflow: scroll;
-    }
-    #inputText{
-
-        font-size: 20px;
-        text-align: center;
-        font-weight: bold;
-
-    
-    }
-
-    #translate {
-        height: 300px;
-        width: 400px;
-        font-size: 40px;
-    }
-    #opText{
-        
-        border: 1px ;
-        width: 130px;
-        margin-left: 68%;
-    }
-</style>
 
 <body>
     <div id="MainBody">
@@ -130,73 +87,8 @@
 
 
     </div>
+
+    <script src="scripts.js"></script>
 </body>
 
 </html>
-<script>
-
-    async function trans(inp, from, to) {
-
-        let res = await fetch("https://libretranslate.de/translate", {
-            method: "POST",
-            body: JSON.stringify({
-                q: `${inp}`,
-                source: `${from}`,
-                target: `${to}`
-            }),
-            headers: { "Content-Type": "application/json" }
-        });
-
-        let data = await res.json()
-        console.log("data :", data);
-
-        let OPtext = document.getElementById("op")
-        OPtext.innerHTML = null
-        let appnd = document.createElement("p")
-        appnd.textContent = data.translatedText
-
-        OPtext.append(appnd)
-
-
-
-    }
-
-
-
-    var from;
-    var to;
-
-
-    function getSelectValue() {
-        var selectedValue = document.getElementById("lang-select").value;
-
-        from = selectedValue
-
-    }
-
-    function getSelectValue1() {
-
-        var selectedValue1 = document.getElementById("lang-select1").value;
-        to = selectedValue1
-
-        console.log(from, to)
-    }
-
-
-    let inp = document.getElementById("translate")
-
-    inp.addEventListener('keyup', (e) => {
-
-        if (e.keyCode === 13) {
-            // console.log(e.target.value)
-
-            let inpText = e.target.value;
-            trans(inpText, from, to)
-
-        }
-    })
-
-
-
-
-</script>

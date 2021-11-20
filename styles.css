@@ -1,0 +1,45 @@
+
+    #MainBody {
+        display: flex;
+        gap: 30px;
+        border: 1px ;
+        margin: auto;
+        width: 820px;
+        /* background-color: rgb(233, 255, 200); */
+    }
+    #inputSide{
+        border: 1px;
+       
+    }
+    #outputSide{
+        border:1px ;
+
+    }
+    #op{
+        width: 400px;
+        height: 300px;
+        border: 1px solid black ;
+        font-size: 50px;
+        font-weight: bold;
+        overflow: scroll;
+    }
+    #inputText{
+
+        font-size: 20px;
+        text-align: center;
+        font-weight: bold;
+
+    
+    }
+
+    #translate {
+        height: 300px;
+        width: 400px;
+        font-size: 40px;
+    }
+    #opText{
+        
+        border: 1px ;
+        width: 130px;
+        margin-left: 68%;
+    }
